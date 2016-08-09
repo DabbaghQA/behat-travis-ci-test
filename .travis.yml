@@ -48,7 +48,7 @@ install:
 
 
 script:
-  - behat --strict
+  - bin/behat features
 
 matrix:
   fast_finish: true
