@@ -7,8 +7,8 @@ cache:
     - "$HOME/.drush/cache"
     - "$HOME/.npm"
 php:
+ 
   - 5.6
-  - 7
 
 env:
   - VERSION=8.x-4.x
