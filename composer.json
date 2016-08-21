@@ -23,5 +23,11 @@
   },
   "config": {
     "bin-dir": "bin/"
-  }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packagist.drupal-composer.org"
+    }
+  ],
 }
