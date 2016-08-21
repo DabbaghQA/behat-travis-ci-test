@@ -9,7 +9,10 @@ cache:
 php:
   - 5.6
   - 7
-  
+
+env:
+  - VERSION=8.x-4.x
+
 sudo: false
 
 mysql:
@@ -43,13 +46,21 @@ install:
   - phpenv config-add drupal.php.ini
   - phpenv rehash
   
-  - composer install
-  - bin/behat --init
+  - composer global require phing/phing
+  - phing build -Dversion=$VERSION -Dbranch=$TRAVIS_COMMIT
   
-
+  - phing install -Ddb.database=drupal
+  - if [ $VERSION != "HEAD" ]; then phing update; fi
+  
+before_script:
+  - cd docroot
+  - drush runserver --default-server=builtin 8080 &>/dev/null &
+  - phantomjs --webdriver=4444 > /dev/null &
+  - sleep 5
 
 script:
-  - bin/behat 
+  - cd ./profiles/varbase
+  - behat --strict 
 
 matrix:
   fast_finish: true
